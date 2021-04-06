@@ -18,6 +18,7 @@
 pushd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null 
 cd ..
 
+rm -rf dev
 rm -rf dev0
 rm -rf dev1
 rm -rf shared

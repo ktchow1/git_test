@@ -1,66 +1,96 @@
 #!/bin/bash
-# ------------------------------------------------------------------------
-# git init / git clone
-# ------------------------------------------------------------------------
-# git status / git add / git diff file / git reset file / git commit
-# git stash / git cat-file / git ls-files / git ls-tree
-# ------------------------------------------------------------------------
-# git log / git reflog / git diff br0 br1 / git reset --hard/mixed/soft
-# git branch / git checkout / git merge / git rebase
-# ------------------------------------------------------------------------
-# git clone / git remote / git fetch / git push / git pull / git submodule 
-# ------------------------------------------------------------------------
 
 
-###############################################################################
-### [1] Regardless of current directory, goto parent folder of this script. ###
-###############################################################################
+#########################
+### [1] Create a repo ###
+#########################
 pushd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null 
 cd ..
 
+rm -rf dev
 rm -rf dev0
 rm -rf dev1
 rm -rf shared
-mkdir dev0
-mkdir dev1
-mkdir shared
-
-
-################################
-### [2] Create a binary tree ###
-################################
-cd dev0
+mkdir dev
+cd dev
 git init
-echo AAA0 > A0.txt; git add A0.txt; git commit -m "add A0"; 
-echo AAA1 > A1.txt; git add A1.txt; git commit -m "add A1";
-echo AAA2 > A2.txt; git add A2.txt; git commit -m "add A2"; git branch   feature1
-echo BBB0 > B0.txt; git add B0.txt; git commit -m "add B0";
-echo BBB1 > B1.txt; git add B1.txt; git commit -m "add B1";
-echo BBB2 > B2.txt; git add B2.txt; git commit -m "add B2"; git branch   feature0
-echo DDD0 > D0.txt; git add D0.txt; git commit -m "add D0"; 
-echo DDD1 > D1.txt; git add D1.txt; git commit -m "add D1";
-echo DDD2 > D2.txt; git add D2.txt; git commit -m "add D2"; git checkout feature0
-echo EEE0 > E0.txt; git add E0.txt; git commit -m "add E0"; 
-echo EEE1 > E1.txt; git add E1.txt; git commit -m "add E1";
-echo EEE2 > E2.txt; git add E2.txt; git commit -m "add E2"; git checkout feature1
-echo CCC0 > C0.txt; git add C0.txt; git commit -m "add C0"; 
-echo CCC1 > C1.txt; git add C1.txt; git commit -m "add C1";
-echo CCC2 > C2.txt; git add C2.txt; git commit -m "add C2"; git branch   feature2
-echo FFF0 > F0.txt; git add F0.txt; git commit -m "add F0"; 
-echo FFF1 > F1.txt; git add F1.txt; git commit -m "add F1";
-echo FFF2 > F2.txt; git add F2.txt; git commit -m "add F2"; git checkout feature2
-echo GGG0 > G0.txt; git add G0.txt; git commit -m "add G0"; 
-echo GGG1 > G1.txt; git add G1.txt; git commit -m "add G1"; 
-echo GGG2 > G2.txt; git add G2.txt; git commit -m "add G2"; git checkout master 
+
+echo AAA > A.txt; git add A.txt; git commit -m "add A"; 
+echo BBB > B.txt; git add B.txt; git commit -m "add B";
+echo CCC > C.txt; git add C.txt; git commit -m "add C"; 
+git branch temp0
+git branch temp1
+git branch temp2
+
+echo DDD > D.txt; git add D.txt; git commit -m "add D";
+echo EEE > E.txt; git add E.txt; git commit -m "add E"; 
+echo FFF > F.txt; git add F.txt; git commit -m "add F"; 
 echo ""
 git log --oneline --decorate --all --graph
 echo ""
 
 
-##########################
-### [3] Push to remote ###
-##########################
+
+#################
+### [2] Merge ###
+#################
+git checkout temp0
+echo EEE > E.txt; git add E.txt; git commit -m "add E0"; 
+echo FFF > F.txt; git add F.txt; git commit -m "add F0"; 
+echo GGG > G.txt; git add G.txt; git commit -m "add G0"; 
+
+### Auto resolve (simply add comment for commit) ###
+git checkout master
+git merge temp0 
+echo ""
+git log --oneline --decorate --all --graph
+echo ""
+
+
+###############################
+### [3] Merge with conflict ###
+###############################
+git checkout temp1
+echo EXX > E.txt; git add E.txt; git commit -m "add E1"; 
+echo FFF > F.txt; git add F.txt; git commit -m "add F1"; 
+echo HHH > H.txt; git add H.txt; git commit -m "add H1"; 
+
+git checkout master
+git merge temp1 
+echo ""
+git log --oneline --decorate --all --graph
+echo ""
+
+### Manual resolve ###
+echo "Conflicts detected, need manual resolve ..."
+echo EYY > E.txt; git add E.txt; git commit -m "manual resolve conflict in E.txt"
+echo ""
+git log --oneline --decorate --all --graph
+echo ""
+
+
+################################
+### [4] Rebase with conflict ###
+################################
+git checkout temp2
+echo D---- > D.txt; git add D.txt; git commit -m "add D2"; 
+echo E---- > E.txt; git add E.txt; git commit -m "add E2"; 
+echo F---- > F.txt; git add F.txt; git commit -m "add F2"; 
+
+git checkout master
+git rebase temp2 
+echo ""
+git log --oneline --decorate --all --graph
+echo ""
+
+# echo answer > file.txt
+# git add file.txt
+# git rebase --continue
+
+
+
 
 ### The END ###
 popd &> /dev/null 
+
 
