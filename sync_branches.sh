@@ -72,10 +72,20 @@ echo ""
 ################################
 ### [4] Rebase with conflict ###
 ################################
+echo ""
+echo "master snapshot"
+cat *
+echo ""
+
 git checkout temp2
 echo D---- > D.txt; git add D.txt; git commit -m "add D2"; 
 echo E---- > E.txt; git add E.txt; git commit -m "add E2"; 
 echo F---- > F.txt; git add F.txt; git commit -m "add F2"; 
+
+echo ""
+echo "temp2 snapshot"
+cat *
+echo ""
 
 git checkout master
 git rebase temp2 
