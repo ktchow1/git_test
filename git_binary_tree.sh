@@ -76,9 +76,9 @@ echo "### Push to remote (see : origin) ###"
 echo "#####################################"
 git log --oneline --decorate --all --graph
 echo ""
-echo "--> Here are tracking branches ... -a"
+echo "--> There are local branches and tracking branches ... -a"
 git branch -a 
-echo "--> Here are upstream branches ... -vv (-v is not enough)"
+echo "--> There are local branches and upstream branches ... -vv (-v is not enough)"
 git branch -vv 
 echo ""
 
@@ -98,11 +98,31 @@ echo "### (clone = init + remote add + fetch) ###"
 echo "###########################################"
 git log --oneline --decorate --all --graph
 echo ""
-echo "--> Here are tracking branches ... -a"
+echo "--> There are no local branches but tracking branches ..."
 git branch -a 
-echo "--> Here are upstream branches ... -vv (-v is not enough)"
+echo "--> There are no local branches and hence no upstream branches ..."
 git branch -vv 
 echo ""
+
+git checkout master
+git checkout feature0
+
+echo "##############################"
+echo "### Checkout some branches ###"
+echo "##############################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> There are local branches and tracking branches ..."
+git branch -a 
+echo "--> There are local branches and upstream branches ..."
+git branch -vv 
+echo ""
+
+#######################################
+### [5] Dev1 does some developments ###
+#######################################
+
+
 
 
 
