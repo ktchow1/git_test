@@ -175,9 +175,39 @@ echo "### Merge branches with different names ###"
 echo "###########################################"
 git log --oneline --decorate --all --graph
 echo ""
-echo "--> For dev0, tracking branch for feature3 is visible after git-fetch."
+echo "--> For dev0, two branches are merged."
 git branch -a 
-echo "--> For dev0, local branch for feature3 does NOT exist, unless git-checkout."
+echo "--> For dev0, two branches are merged."
+git branch -vv 
+echo ""
+
+cd ../dev1
+git fetch --all
+git checkout master 
+
+echo ""
+echo "##############################################"
+echo "### Merged branches in perspective of dev1 ###"
+echo "##############################################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> For dev1, local master lags behind origin/master for 7 commits : 3Es, 3Hs and 1 merge commit"
+git branch -a 
+echo "--> For dev1, ..."
+git branch -vv 
+echo ""
+
+git pull --rebase origin master
+
+echo ""
+echo "############################################################"
+echo "### Merged branches in perspective of dev1 (pull rebase) ###"
+echo "############################################################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> For dev1, done"
+git branch -a 
+echo "--> For dev1, done"
 git branch -vv 
 echo ""
 
