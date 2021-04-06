@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ###############################################################################
 ### [1] Regardless of current directory, goto parent folder of this script. ###
 ###############################################################################
@@ -8,14 +9,15 @@ cd ..
 
 rm -rf dev0
 rm -rf dev1
-rm -rf server
+rm -rf shared
 mkdir dev0
 mkdir dev1
-mkdir server
+mkdir shared
 
-###############################
-### [2] Build a binary tree ###
-###############################
+
+################################
+### [2] Create a binary tree ###
+################################
 cd dev0
 git init
 echo AAA0 > A0.txt; git add A0.txt; git commit -m "add A0"; 
@@ -38,12 +40,69 @@ echo FFF1 > F1.txt; git add F1.txt; git commit -m "add F1";
 echo FFF2 > F2.txt; git add F2.txt; git commit -m "add F2"; git checkout feature2
 echo GGG0 > G0.txt; git add G0.txt; git commit -m "add G0"; 
 echo GGG1 > G1.txt; git add G1.txt; git commit -m "add G1"; 
-echo GGG2 > G2.txt; git add G2.txt; git commit -m "add G2"; git branch 
+echo GGG2 > G2.txt; git add G2.txt; git commit -m "add G2"; git checkout master 
+echo ""
+echo "##############################"
+echo "### Binary tree is created ###"
+echo "##############################"
+git log --oneline --decorate --all --graph
+echo ""
 
 
+##########################
+### [3] Push to remote ###
+##########################
+cd ../shared 
+git init --bare
+
+cd ../dev0
+git remote add origin ../shared
+
+########################################################
+# If upstream branch is not created, need to specify :
+# 1. remote-site
+# 2. branch name
+# If upstream branch is created, then just :
+# >> git push 
+# is fine, it pushes HEAD branch to registered location.
+########################################################
+git push origin master 
+git push -u origin feature0 
+git push -u origin feature1 
+
+echo ""
+echo "#####################################"
+echo "### Push to remote (see : origin) ###"
+echo "#####################################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> Here are tracking branches ... -a"
+git branch -a 
+echo "--> Here are upstream branches ... -vv (-v is not enough)"
+git branch -vv 
+echo ""
 
 
+#############################
+### [4] Fetch from remote ###
+#############################
+cd ../dev1
+git init
+git remote add origin ../shared
+git fetch --all
 
+echo ""
+echo "###########################################"
+echo "### Fetch from remote                   ###"
+echo "### (clone = init + remote add + fetch) ###"
+echo "###########################################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> Here are tracking branches ... -a"
+git branch -a 
+echo "--> Here are upstream branches ... -vv (-v is not enough)"
+git branch -vv 
+echo ""
 
 
 
