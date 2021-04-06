@@ -10,6 +10,10 @@
 # ------------------------------------------------------------------------
 # git clone / git remote / git fetch / git push / git pull / git submodule 
 # ------------------------------------------------------------------------
+# From remote site :
+# git fetch    = get tracking branch
+# git checkout = get    local branch (of same name)
+# git push -u  = set upstream branch (of same name)
 
 
 ###############################################################################
