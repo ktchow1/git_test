@@ -1,4 +1,15 @@
 #!/bin/bash
+# ------------------------------------------------------------------------
+# git init / git clone
+# ------------------------------------------------------------------------
+# git status / git add / git diff file / git reset file / git commit
+# git stash / git cat-file / git ls-files / git ls-tree
+# ------------------------------------------------------------------------
+# git log / git reflog / git diff br0 br1 / git reset --hard/mixed/soft
+# git branch / git checkout / git merge / git rebase
+# ------------------------------------------------------------------------
+# git clone / git remote / git fetch / git push / git pull / git submodule 
+# ------------------------------------------------------------------------
 
 
 ###############################################################################
@@ -58,14 +69,16 @@ git init --bare
 cd ../dev0
 git remote add origin ../shared
 
-########################################################
-# If upstream branch is not created, need to specify :
+######################################################
+# If upstream branch is NOT created, need to specify :
 # 1. remote-site
-# 2. branch name
-# If upstream branch is created, then just :
+# 2. branch-name (of local branch)
+# The same branch-name will be used in remote-site.
+#
+# If upstream branch is created, then just execute :
 # >> git push 
-# is fine, it pushes HEAD branch to registered location.
-########################################################
+# It pushes HEAD branch to registered location.
+######################################################
 git push origin master 
 git push -u origin feature0 
 git push -u origin feature1 
@@ -98,32 +111,77 @@ echo "### (clone = init + remote add + fetch) ###"
 echo "###########################################"
 git log --oneline --decorate --all --graph
 echo ""
-echo "--> There are no local branches but tracking branches ..."
+echo "--> There are no local branches but tracking branches."
 git branch -a 
-echo "--> There are no local branches and hence no upstream branches ..."
+echo "--> There are no local branches, hence no upstream branches."
 git branch -vv 
 echo ""
 
 git checkout master
 git checkout feature0
 
+echo ""
 echo "##############################"
 echo "### Checkout some branches ###"
 echo "##############################"
 git log --oneline --decorate --all --graph
 echo ""
-echo "--> There are local branches and tracking branches ..."
+echo "--> There are local branches and tracking branches."
 git branch -a 
-echo "--> There are local branches and upstream branches ..."
+echo "--> There are local branches and upstream branches."
 git branch -vv 
 echo ""
 
-#######################################
-### [5] Dev1 does some developments ###
-#######################################
+
+#############################
+### [5] Push a new branch ###
+#############################
+git checkout feature0
+git branch feature3
+git checkout feature3
+echo HHH0 > H0.txt; git add H0.txt; git commit -m "add H0"; 
+echo HHH1 > H1.txt; git add H1.txt; git commit -m "add H1";
+echo HHH2 > H2.txt; git add H2.txt; git commit -m "add H2"; 
+git push -u origin feature3
+
+cd ../dev0
+git checkout master
+git fetch --all
+
+echo ""
+echo "#########################"
+echo "### Push a new branch ###"
+echo "#########################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> For dev0, tracking branch for feature3 is visible after git-fetch."
+git branch -a 
+echo "--> For dev0, local branch for feature3 does NOT exist, unless git-checkout."
+git branch -vv 
+echo ""
 
 
+###############################################
+### [6] Merge branches with different names ###
+###############################################
+# git merge feature3           # Does not work, as there is no local branch for feature3.
+# git merge origin feature3    # Does not work, as origin is not a branch (syntax error).
+  git merge origin/feature3 
+  git push -u origin master
+
+echo ""
+echo "###########################################"
+echo "### Merge branches with different names ###"
+echo "###########################################"
+git log --oneline --decorate --all --graph
+echo ""
+echo "--> For dev0, tracking branch for feature3 is visible after git-fetch."
+git branch -a 
+echo "--> For dev0, local branch for feature3 does NOT exist, unless git-checkout."
+git branch -vv 
+echo ""
 
 
-
+### The END ###
 popd &> /dev/null 
+
