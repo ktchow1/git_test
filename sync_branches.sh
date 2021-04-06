@@ -93,11 +93,15 @@ echo ""
 git log --oneline --decorate --all --graph
 echo ""
 
-# echo answer > file.txt
-# git add file.txt
-# git rebase --continue
-
-
+#############################
+# To resolve manually :
+# 1. echo answer > file.txt
+# 2. git add file.txt
+# 3. git rebase --continue
+#
+# To trust new base :
+# 1. git rebase --skip
+#############################
 
 
 ### The END ###
