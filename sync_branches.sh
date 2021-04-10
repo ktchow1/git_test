@@ -102,7 +102,7 @@ echo ""
 # To trust new base :
 # 1. git rebase --skip
 #############################
-
+git status
 
 ### The END ###
 popd &> /dev/null 
