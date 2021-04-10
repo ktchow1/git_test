@@ -5,6 +5,7 @@
 ### [1] Init ###
 ################
 pushd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null 
+cd ..
 
 rm -rf dev
 rm -rf dev0
@@ -14,7 +15,7 @@ mkdir dev0
 mkdir dev1
 mkdir shared
 
-cd ../shared 
+cd shared 
 git init --bare
 
 
@@ -34,10 +35,12 @@ git push -u origin master
 ###############################
 ### [3] Dev1 does something ###
 ###############################
-#   cd ../dev1
-#   git clone ../shared
-#   git branch dev
-#   git checkout dev
+cd ../dev1
+git init
+git remote add origin ../shared
+git fetch
+git checkout master
+git checkout -b dev
 git log --oneline --decorate --all --graph
 
 
