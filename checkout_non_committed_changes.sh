@@ -22,10 +22,13 @@ git init
 echo AAA > A.txt; git add A.txt; git commit -m "add A"; 
 echo BBB > B.txt; git add B.txt; git commit -m "add B"; git branch dev 
 echo CCC > C.txt; git add C.txt; git commit -m "add C"; 
-echo DDD > D.txt; git add D.txt; git commit -m "add D"; git checkout dev; ls 
+echo DDD > D.txt; git add D.txt; git commit -m "add D";
+
+git checkout dev
+ls; cat *
 
 git checkout master
-touch 0.txt;  echo 123 > A.txt;  rm B.txt;  rm C.txt;
+echo aaa > A.txt;  rm B.txt;  rm C.txt; echo EEE > E.txt
 ls; cat *   
 
 git checkout dev 
