@@ -122,28 +122,19 @@ git pull --rebase origin master;
 ### PQR ###
 git branch m3
 git rebase d3;      
-git log --oneline --decorate --all --graph;  
-
 git reset --soft m3;                         
-git log --oneline --decorate --all --graph;  
 git commit -m "add PQR"
 
 ### STU ###
 git branch m4
 git rebase d4;                               
-git log --oneline --decorate --all --graph;  
-
 git reset --soft m4;                         
-git log --oneline --decorate --all --graph;  
 git commit -m "add STU"
 
 ### VWX ###
 git branch m5
 git rebase d5;                               
-git log --oneline --decorate --all --graph;  
-
 git reset --soft m5;                         
-git log --oneline --decorate --all --graph;  
 git commit -m "add VWX"
 
 ### push to origin ###
