@@ -62,6 +62,7 @@ echo MMM > M.txt; git add M.txt; git commit -m "add M";
 echo NNN > N.txt; git add N.txt; git commit -m "add N"; 
 echo OOO > O.txt; git add O.txt; git commit -m "add O"; git branch d2 
 
+### download update from other team members ###
 git fetch --all
 git checkout master
 git pull --rebase origin master;     
@@ -93,19 +94,81 @@ git reset --soft m2;                         echo ""; echo "****** reset m2 ****
 git log --oneline --decorate --all --graph;  echo ""
 git commit -m "add JKL"
 
-### Verify ###
+### push to origin ###
 git push
+
+
+######################################
+### [4] Dev0 does something in dev ###
+######################################
+git fetch --all
+git checkout dev
+git pull origin master
+echo PPP > P.txt; git add P.txt; git commit -m "add P"; 
+echo QQQ > Q.txt; git add Q.txt; git commit -m "add Q"; 
+echo RRR > R.txt; git add R.txt; git commit -m "add R"; git branch d3 
+echo SSS > S.txt; git add S.txt; git commit -m "add S"; 
+echo TTT > T.txt; git add T.txt; git commit -m "add T"; 
+echo UUU > U.txt; git add U.txt; git commit -m "add U"; git branch d4 
+echo VVV > V.txt; git add V.txt; git commit -m "add V"; 
+echo WWW > W.txt; git add W.txt; git commit -m "add W"; 
+echo XXX > X.txt; git add X.txt; git commit -m "add X"; git branch d5 
+
+### download update from other team members ###
+git fetch --all
+git checkout master
+git pull --rebase origin master;     
+
+### PQR ###
+git branch m3
+git rebase d3;      
+git log --oneline --decorate --all --graph;  
+
+git reset --soft m3;                         
+git log --oneline --decorate --all --graph;  
+git commit -m "add PQR"
+
+### STU ###
+git branch m4
+git rebase d4;                               
+git log --oneline --decorate --all --graph;  
+
+git reset --soft m4;                         
+git log --oneline --decorate --all --graph;  
+git commit -m "add STU"
+
+### VWX ###
+git branch m5
+git rebase d5;                               
+git log --oneline --decorate --all --graph;  
+
+git reset --soft m5;                         
+git log --oneline --decorate --all --graph;  
+git commit -m "add VWX"
+
+### push to origin ###
+git push           
+
+git fetch --all
+git checkout dev
+git pull origin master;                      echo ""; echo "****** finalise ******"
+git log --oneline --decorate --all --graph;  echo ""
+
+
+##################
+### [5] Verify ###
+##################
 cd ../dev1
 
 git fetch --all
-git pull origin master;                      echo ""; echo "******* dev1 fetch ******"
-git log --oneline --decorate --all --graph;  echo ""
+git pull origin master; 
 
-ll
-git checkout HEAD^
-ll
-git checkout HEAD^
-ll
-git checkout HEAD^
-ll
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls; git checkout HEAD^
+ls 
 popd &> /dev/null 
